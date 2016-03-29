@@ -1,8 +1,8 @@
 
 public class Comparable {
 
-	char valorASCII;
-	String codigoHuf; 
+	private char valorASCII;
+	private String codigoHuf; 
 	
 	public void setCodigo(String codigo){
 		this.codigoHuf = codigo;

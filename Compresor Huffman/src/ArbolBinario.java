@@ -3,8 +3,8 @@ public class ArbolBinario {
 
 	private float frecuencia;
 	private Comparable ASCII;
-	ArbolBinario hijoDerecho = null;
-	ArbolBinario hijoIzquierdo = null;
+	private ArbolBinario hijoDerecho = null;
+	private ArbolBinario hijoIzquierdo = null;
 
 	public void setFrecuencia(float frecuencia) {
 		this.frecuencia = frecuencia;
@@ -40,7 +40,7 @@ public class ArbolBinario {
 	}
 
 	public ArbolBinario getArbolEntero(Nodo raiz) {
-		return raiz.valor;
+		return raiz.getValor();
 	}// Cuando todo el arbol esta guardado en un mismo nodo ya para usar los
 		// codigos.
 

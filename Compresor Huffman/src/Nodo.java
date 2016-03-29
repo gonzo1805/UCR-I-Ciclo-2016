@@ -2,8 +2,8 @@
 public class Nodo {
 	
 	
-		ArbolBinario valor;
-		Nodo siguiente = null;
+		private ArbolBinario valor;
+		private Nodo siguiente = null;
 	
 		
 		public void setValor(ArbolBinario valor){
@@ -18,10 +18,8 @@ public class Nodo {
 			
 		}
 		
-		public Nodo Nodo(ArbolBinario valor){
-			Nodo nodo = new Nodo();
+		public Nodo(ArbolBinario valor){
 			this.valor = valor;
-			return nodo;
 		}//Serias dudas sobre este
 
 		public ArbolBinario getValor(){
