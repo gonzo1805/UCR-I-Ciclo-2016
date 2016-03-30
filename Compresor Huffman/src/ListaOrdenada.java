@@ -2,7 +2,7 @@
 public class ListaOrdenada {
 
 	private Nodo raiz;
-	private static int cantidadNodos;
+	private static int cantidadNodos = 0;
 
 	ArbolBinario Arbol = new ArbolBinario();
 	
