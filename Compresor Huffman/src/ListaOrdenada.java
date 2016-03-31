@@ -1,5 +1,5 @@
 
-public class ListaOrdenada {
+public class ListaOrdenada implements ListaOrdenadaP<Nodo, ArbolBinario> {
 
 	private Nodo raiz;
 	private static int cantidadNodos = 0;
@@ -10,7 +10,7 @@ public class ListaOrdenada {
 		raiz = null;
 	}
 
-	private void insertarNodo(Nodo nuevoNodo) {
+	public void insertarNodo(Nodo nuevoNodo) {
 		if (raiz == null) {
 			raiz = nuevoNodo;
 		} else {
@@ -35,7 +35,7 @@ public class ListaOrdenada {
 		}
 	}// Fin insertarNodo
 
-	private void insertarArbol(ArbolBinario arbol) {
+	public void insertarArbol(ArbolBinario arbol) {
 		Nodo nuevoNodo = new Nodo();
 		nuevoNodo.setValor(arbol);
 
@@ -66,7 +66,7 @@ public class ListaOrdenada {
 
 	}// Fin insertarArbol
 
-	private void combinarFrecuencias(Nodo arbol_1, Nodo arbol_2) {
+	public void combinarFrecuencias(Nodo arbol_1, Nodo arbol_2) {
 		Nodo nuevoNodo = new Nodo();
 		nuevoNodo.setValor(Arbol.combinaFrecuencias(arbol_1, arbol_2));	
 		borrarNodo(arbol_1);
@@ -75,7 +75,7 @@ public class ListaOrdenada {
 	}// Fin combinarFrecuencias, siempre mandar el arbol_2 como el de mas alta
 		// frecuencia para poder tener un dato correcto en la raiz
 
-	private void borrarNodo(Nodo nodo) {
+	public void borrarNodo(Nodo nodo) {
 		Nodo actual = raiz;
 		Nodo anterior = raiz;
 

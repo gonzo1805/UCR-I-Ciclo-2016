@@ -1,5 +1,5 @@
 
-public class TablaCodigos {
+public class TablaCodigos implements TablaCodigosP<Comparable> {
 
     private TablaCodigos raiz;
     private static int cantidadDatos = 0;
