@@ -1,5 +1,5 @@
 
-public class ArbolBinario {
+public class ArbolBinario implements ArbolBinarioP<Nodo> {
 
 	private float frecuencia;
 	private Comparable ASCII;
@@ -76,7 +76,7 @@ public class ArbolBinario {
 		return codigo;
 	}
 	
-	private String getCodigoHuffman(ArbolBinario actual, int letra, ArbolBinario padre, String codigo){
+	public String getCodigoHuffman(ArbolBinario actual, int letra, ArbolBinario padre, String codigo){
 		if (actual.ASCII.getValorASCII() != letra){
 			
 			codigo += "0";
