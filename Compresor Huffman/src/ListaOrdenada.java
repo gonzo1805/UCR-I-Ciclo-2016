@@ -26,7 +26,7 @@ public class ListaOrdenada {
             } else {
                 Nodo actual = raiz;
                 Nodo anterior = raiz;
-                while  (nuevoNodo.getValor().getFrecuencia() > actual.getValor().getFrecuencia()) {
+                for   (int p=0; p<cantidadNodos; p++) {
                 	if (actual.getSiguiente() == null){
                 		actual.setSiguiente(nuevoNodo);
                 		cantidadNodos++;
@@ -38,9 +38,10 @@ public class ListaOrdenada {
                 		cantidadNodos++;
                 		return;
                 	}
-                	if (nuevoNodo.getValor().getFrecuencia() > actual.getValor().getFrecuencia() && actual.getSiguiente() != null) {
+                	if (nuevoNodo.getValor().getFrecuencia() > actual.getValor().getFrecuencia()) {
                         actual = actual.getSiguiente();
                         anterior.setSiguiente(actual);
+                     
                 	}    
                 	
                 	
@@ -120,5 +121,13 @@ public class ListaOrdenada {
         for (int i = 0; i < cantidadNodos; i++) {
             combinarFrecuencias(raiz, raiz.getSiguiente());
         }
+    }
+    
+    public void imprimaLista(){
+    	Nodo nodo = raiz;
+    	for (int i=0; i<cantidadNodos; i++){
+    		System.out.println(nodo.getValor().getFrecuencia());
+    		nodo = nodo.getSiguiente();
+    	}
     }
 }
