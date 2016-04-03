@@ -1,8 +1,8 @@
 
-public class ArbolBinario implements ArbolBinarioP<Nodo> {
+public class ArbolBinario {
 
 	private float frecuencia;
-	private Comparable ASCII;
+	private int ASCII;
 	private ArbolBinario hijoDerecho = null;
 	private ArbolBinario hijoIzquierdo = null;
 
@@ -34,7 +34,7 @@ public class ArbolBinario implements ArbolBinarioP<Nodo> {
 
 	}
 
-	public ArbolBinario(float frecuencia, Comparable ASCII) {
+	public ArbolBinario(float frecuencia, int ASCII) {
 		this.frecuencia = frecuencia;
 		this.ASCII = ASCII;
 	}
@@ -49,11 +49,16 @@ public class ArbolBinario implements ArbolBinarioP<Nodo> {
 	}
 
 	public void imprimaArbol() {
-		System.out.print(frecuencia + " ");
-		if (hijoIzquierdo != null)
-			hijoIzquierdo.imprima();
-		if (hijoDerecho != null)
-			hijoDerecho.imprima();
+		
+		if (this.hijoIzquierdo != null){
+			System.out.print(frecuencia + ASCII + " ");
+			this.hijoIzquierdo.imprima();
+		}
+		if (this.hijoDerecho != null){
+			System.out.print(frecuencia + ASCII + " ");
+			this.hijoDerecho.imprima();
+		}
+			
 	}
 
 	public ArbolBinario combinaFrecuencias(Nodo arbol_1, Nodo arbol_2) {
@@ -63,7 +68,8 @@ public class ArbolBinario implements ArbolBinarioP<Nodo> {
 		if (arbol_1.getValor().getFrecuencia() < arbol_2.getValor().getFrecuencia()) {
 			nuevoArbol.hijoIzquierdo = arbol_1.getValor();
 			nuevoArbol.hijoDerecho = arbol_2.getValor();
-		} else if (arbol_1.getValor().getFrecuencia() >= arbol_2.getValor().getFrecuencia()) {
+		}
+		if (arbol_1.getValor().getFrecuencia() >= arbol_2.getValor().getFrecuencia()) {
 			nuevoArbol.hijoIzquierdo = arbol_2.getValor();
 			nuevoArbol.hijoDerecho = arbol_1.getValor();
 		}
@@ -77,7 +83,7 @@ public class ArbolBinario implements ArbolBinarioP<Nodo> {
 	}
 	
 	public String getCodigoHuffman(ArbolBinario actual, int letra, ArbolBinario padre, String codigo){
-		if (actual.ASCII.getValorASCII() != letra){
+		if (actual.ASCII != letra){
 			
 			codigo += "0";
 			getCodigoHuffman(actual.hijoIzquierdo, letra, actual, codigo);
@@ -87,7 +93,7 @@ public class ArbolBinario implements ArbolBinarioP<Nodo> {
 			getCodigoHuffman(actual.hijoDerecho, letra, actual, codigo);
 			codigo.substring(0, codigo.length()-1);
 		}
-		if (actual.ASCII.getValorASCII() == letra){
+		if (actual.ASCII == letra){
 			return codigo;
 		}
 		System.out.println("No aparecio la letra indicada en el arbol, se retornara un null");

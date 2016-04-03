@@ -4,7 +4,6 @@ public class Nodo {
 	
 		private ArbolBinario valor;
 		private Nodo siguiente = null;
-	
 		
 		public void setValor(ArbolBinario valor){
 			this.valor = valor;
