@@ -5,7 +5,15 @@ public class ArbolBinario {
 	private int ASCII;
 	private ArbolBinario hijoDerecho = null;
 	private ArbolBinario hijoIzquierdo = null;
-
+	
+	public int getASCII(){
+		return this.ASCII;
+	}
+	
+	public void setASCII(int ASCII){
+		this.ASCII = ASCII;
+	}
+	
 	public void setFrecuencia(float frecuencia) {
 		this.frecuencia = frecuencia;
 	}
