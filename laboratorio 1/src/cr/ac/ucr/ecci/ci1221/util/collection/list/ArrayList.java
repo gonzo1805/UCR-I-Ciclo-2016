@@ -11,7 +11,8 @@ import cr.ac.ucr.ecci.ci1221.util.collection.Iterator;
 public class ArrayList<E> implements List<E> {
 
 	private static int cantidadDatos = 0;
-	private E[] lista = (E[]) new Object[0];
+	private E[] lista = (E[]) new Object[1];
+	private static int tamañoLista = 1;
 
 	/**
 	 * Adds the given element to the given position.
@@ -49,18 +50,29 @@ public class ArrayList<E> implements List<E> {
 	 */
 	@Override
 	public void remove(int position) {
-		E[] lista2 = (E[]) new Object[cantidadDatos - 1];
-		if (position <= cantidadDatos) {
+		boolean marcador = false;
+		int x = 0;
+		E[] listaAuxiliar = (E[]) new Object[cantidadDatos];
+		for (int i=0; i<cantidadDatos-1; i++){
+			if (i == position-1) marcador = true;
+			if (marcador == false) x++; listaAuxiliar[i] = lista[x];
+			if (marcador == true){
+				listaAuxiliar[x] = lista[i+1];
+				x++;
+			}
+		}cantidadDatos--;
+		/*E[] lista2 = (E[]) new Object[cantidadDatos - 1];
+		if (position-1 <= cantidadDatos) {
 			for (int i = 0; i < cantidadDatos; i++) {
-				if (i < position) {
+				if (i < position-1) {
 					lista2[i] = lista[i];
-				} else if (i == position) {
+				} else if (i == position-1) {
 
-				} else if (i > position) {
+				} else if (i > position-1) {
 					lista2[i] = lista[i + 1];
 				}
 			}
-		}
+		}*/
 	}
 
 	/**
@@ -77,8 +89,8 @@ public class ArrayList<E> implements List<E> {
 				return i;
 			}
 		}
-		System.out.println("No se encontro en la lista el elemento dado, se devolvera 0 contrario al dato solicitado");
-		return 0;
+		System.out.println("No se encontro en la lista el elemento dado, se devolvera un numero magico contrario al dato solicitado");
+		return 1*10^20;
 	}
 
 	/**
@@ -122,7 +134,19 @@ public class ArrayList<E> implements List<E> {
 	@Override
 	public void add(E element) {
 
-		E[] lista2 = (E[]) new Object[cantidadDatos + 1];
+		if (tamañoLista < cantidadDatos+1){
+			E[] listaAuxiliar = (E[]) new Object[cantidadDatos*2];
+			for (int i=0; i<cantidadDatos; i++){
+				listaAuxiliar[i] = lista[i];
+			}
+			lista = listaAuxiliar;
+			tamañoLista = cantidadDatos*2;
+		}
+		if (cantidadDatos == 0){
+			lista[0] = element;
+		}
+		lista[cantidadDatos] = element;
+		/*E[] lista2 = (E[]) new Object[cantidadDatos + 1];
 		if (cantidadDatos == 0) {
 			lista2[0] = element;
 		} else {
@@ -135,8 +159,8 @@ public class ArrayList<E> implements List<E> {
 				
 			}
 
-		}
-		lista = lista2;
+		}*/
+		//lista = lista2;
 		cantidadDatos++;
 	}
 
@@ -148,8 +172,25 @@ public class ArrayList<E> implements List<E> {
 	 */
 	@Override
 	public void remove(E element) {
-		E[] lista2 = (E[]) new Object[cantidadDatos - 1];
+		int i = 0;
+		boolean puntoEncuentro = false;
+		for (int x=0; x<cantidadDatos; x++){
+			if (lista[x] != element) i++;
+			else if (lista[x] == element){
+				puntoEncuentro = true; 
+			}
+			if (puntoEncuentro == true){
+				lista[x] = lista[i+1];
+			}
+			cantidadDatos--;
+		}
+		/*E[] lista2 = (E[]) new Object[cantidadDatos];
+		if (find(element) == (1*10^20)){
+			System.out.println("El numero que se intento eliminar no se encuentra en la lista");
+			return;			
+		}
 		int z = find(element);
+		
 		for (int i = 0; i < cantidadDatos; i++) {
 			if (i < z) {
 				lista2[i] = lista[i];
@@ -158,7 +199,7 @@ public class ArrayList<E> implements List<E> {
 			} else if (i > z) {
 				lista2[i] = lista[i + 1];
 			}
-		}
+		}*/
 
 	}
 
@@ -171,7 +212,7 @@ public class ArrayList<E> implements List<E> {
 	 */
 	@Override
 	public boolean contains(E element) {
-		if (find(element) != 0) {
+		if (find(element) != (1*10^20)) {
 			return true;
 		}
 		return false;
@@ -203,6 +244,8 @@ public class ArrayList<E> implements List<E> {
 	@Override
 	public void clear() {
 		lista = (E[]) new Object[1];
+		cantidadDatos = 0;
+		tamañoLista = 1;
 	}
 
 	/**
