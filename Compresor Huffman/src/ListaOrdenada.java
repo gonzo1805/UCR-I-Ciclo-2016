@@ -1,4 +1,4 @@
-
+//
 public class ListaOrdenada {
 
 	private Nodo raiz;
@@ -19,10 +19,11 @@ public class ListaOrdenada {
 			raiz = nuevoNodo;
 			cantidadNodos++;
 		} else {
-			if (nuevoNodo.getValor().getFrecuencia() < raiz.getValor().getFrecuencia()) {
+			if (nuevoNodo.getValor().getFrecuencia() <= raiz.getValor().getFrecuencia()) {
 				nuevoNodo.setSiguiente(raiz);
 				raiz = nuevoNodo;
 				cantidadNodos++;
+				return;
 			} else {
 				Nodo actual = raiz;
 				Nodo anterior = raiz;
@@ -32,19 +33,24 @@ public class ListaOrdenada {
 						cantidadNodos++;
 						return;
 					}
-					if (nuevoNodo.getValor().getFrecuencia() <= actual.getValor().getFrecuencia()) {
-						anterior.setSiguiente(nuevoNodo);
-						nuevoNodo.setSiguiente(actual);
+					if (nuevoNodo.getValor().getFrecuencia() < actual.getValor().getFrecuencia()) {
+						nuevoNodo.setSiguiente(actual);	
+						anterior.setSiguiente(nuevoNodo);										
 						cantidadNodos++;
 						return;
 					}
-					if (nuevoNodo.getValor().getFrecuencia() > actual.getValor().getFrecuencia()) {
-						anterior = actual;
-						actual = actual.getSiguiente();
-						
-
+					if (nuevoNodo.getValor().getFrecuencia() == actual.getValor().getFrecuencia()){
+						nuevoNodo.setSiguiente(actual);
+						anterior.setSiguiente(nuevoNodo);
+						cantidadNodos++;
+						return;
 					}
-
+					if (nuevoNodo.getValor().getFrecuencia() >= actual.getValor().getFrecuencia()) {
+						anterior = actual;
+						actual = actual.getSiguiente();					
+																	
+					}
+					
 				}
 			}
 
@@ -52,12 +58,11 @@ public class ListaOrdenada {
 	}// Fin insertarNodo
 
 	public void insertarArbol(ArbolBinario arbol) {
-		Nodo nuevoNodo = new Nodo();
-		nuevoNodo.setValor(arbol);
-		insertarNodo(nuevoNodo);
+		insertarNodo(new Nodo(arbol));
 	}// Fin insertarArbol
+	
 
-	public void combinarFrecuencias(Nodo arbol_1, Nodo arbol_2) {
+	/*public void combinarFrecuencias(Nodo arbol_1, Nodo arbol_2) {
 		Nodo nuevoNodo = new Nodo();
 		ArbolBinario nuevoArbol = new ArbolBinario();
 
@@ -76,7 +81,7 @@ public class ListaOrdenada {
 		borrarNodo(arbol_1);
 		borrarNodo(arbol_2);
 		insertarNodo(nuevoNodo);
-	}// Fin combinarFrecuencias, siempre mandar el arbol_2 como el de mas alta
+	}*/// Fin combinarFrecuencias, siempre mandar el arbol_2 como el de mas alta
 		// frecuencia para poder tener un dato correcto en la raiz
 
 	public void borrarNodo(Nodo nodo) {
@@ -120,16 +125,36 @@ public class ListaOrdenada {
 
 	}// Fin borrarNodo
 
-	public void generaArbol(Nodo raiz) {
-		while (raiz.getSiguiente() != null) {
-			combinarFrecuencias(raiz, raiz.getSiguiente());
+	public void generaArbol(ListaOrdenada lista) {
+
+		while (cantidadNodos != 1) {
+			
+			Nodo nodo1 = new Nodo();
+			nodo1.setValor(lista.raiz.getValor());
+			Nodo nodo2 = new Nodo();
+			nodo2.setValor(lista.raiz.getSiguiente().getValor());
+			
+			borrarNodo(nodo1);
+			borrarNodo(nodo2);
+			insertarArbol(new ArbolBinario(nodo1.getValor(), nodo2.getValor()));
+			imprimaLista();
+			
+			//if (siguiente.getSiguiente() != null) {
+				
+				//actual = siguiente.getSiguiente();
+				//siguiente = siguiente.getSiguiente().getSiguiente();
+				
+
+				// combinarFrecuencias(raiz, raiz.getSiguiente());
+			//}
 		}
 	}
 
 	public void imprimaLista() {
+		System.out.println("\n");
 		Nodo nodo = raiz;
 		for (int i = 0; i < cantidadNodos; i++) {
-			System.out.println(nodo.getValor().getFrecuencia());
+			System.out.println(nodo.getValor().getFrecuencia() + " " + nodo.getValor().getASCII());
 			nodo = nodo.getSiguiente();
 		}
 	}

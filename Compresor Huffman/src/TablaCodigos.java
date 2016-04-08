@@ -1,12 +1,32 @@
 
 public class TablaCodigos {
 
-    private TablaCodigos raiz;
+    private TablaCodigos inicio;
     private static int cantidadDatos = 0;
 
-    private Comparable dato;
+    private int ASCII;
+    private String codigoHuff;
     private TablaCodigos siguiente = null;
+    private TablaCodigos cola;
 
+    public TablaCodigos() {
+    	inicio = null;
+    	cola = inicio;
+    }
+    
+    public TablaCodigos(int dato, String huff){
+    	this.ASCII = dato;
+    	this.codigoHuff = huff;
+    }
+    
+    public String getHuff(){
+    	return this.codigoHuff;
+    }
+    
+    public void setHuff(String huff){
+    	this.codigoHuff = huff;
+    }
+    
     public TablaCodigos getSiguiente() {
         return this.siguiente;
     }
@@ -15,36 +35,45 @@ public class TablaCodigos {
         this.siguiente = siguiente;
     }
 
-    public void setDato(Comparable dato) {
-        this.dato = dato;
+    public void setDato(int dato) {
+        this.ASCII = dato;
     }
 
-    public Comparable getDato() {
-        return this.dato;
+    public int getCodigo(int dato) {
+        String meh = sacaHuff(dato);
+    	return Integer.parseInt(meh);
     }
+    
 
-    public TablaCodigos() {
-        raiz = null;
-    }
-
-    public TablaCodigos(TablaCodigos dato) {
-        this.raiz = dato;
-    }
-
-    public TablaCodigos apuntaUltimo(TablaCodigos raiz) {
-        if (raiz.siguiente == null) {
-            return raiz;
-        } else if (raiz.siguiente != null) {
-            apuntaUltimo(raiz.siguiente);
+    public void inserteDato(int dato, String huff) {
+        TablaCodigos insertado = new TablaCodigos(dato, huff);
+        if (cantidadDatos == 0 || inicio == null){
+        	inicio = insertado;
+        	cola = insertado;
+        	cantidadDatos++;
         }
-        return null;
+        else {
+        	 cola.siguiente = insertado;
+        	 cola = cola.siguiente;
+        	 cantidadDatos++;
+        }
     }
-
-    public void inserteDato(Comparable dato) {
-        TablaCodigos insertado = new TablaCodigos();
-        insertado.dato = dato;
-        apuntaUltimo(raiz).siguiente = insertado;
-        cantidadDatos++;
+    
+    public String sacaHuff(int ASCII){
+    	TablaCodigos auxiliar = inicio;
+    	for (int i=0; i<cantidadDatos; i++){
+    		if (auxiliar.ASCII != ASCII) auxiliar = auxiliar.siguiente;
+    		if (auxiliar.ASCII == ASCII) return auxiliar.codigoHuff;
+    	}
+    	return null;
+    }
+    
+    public void imprimaTabla(){
+    	TablaCodigos auxiliar = inicio;
+    	for (int i=0; i<cantidadDatos; i++){
+    		System.out.println("ASCII = " + auxiliar.ASCII + " Codigo Huffman = " + auxiliar.codigoHuff);
+    		auxiliar = auxiliar.siguiente;
+    	}
     }
 
 

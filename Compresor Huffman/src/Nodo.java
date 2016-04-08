@@ -1,6 +1,6 @@
 
 public class Nodo {
-	
+	//
 	
 		private ArbolBinario valor;
 		private Nodo siguiente = null;
@@ -19,8 +19,7 @@ public class Nodo {
 		
 		public Nodo(ArbolBinario valor){
 			this.valor = valor;
-		}//Serias dudas sobre este
-
+		}
 		public ArbolBinario getValor(){
 			return this.valor;
 		}

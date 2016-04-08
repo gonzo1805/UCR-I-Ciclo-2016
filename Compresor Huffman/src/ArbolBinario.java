@@ -1,19 +1,21 @@
-
+//
 public class ArbolBinario {
 
 	private float frecuencia;
 	private int ASCII;
 	private ArbolBinario hijoDerecho = null;
 	private ArbolBinario hijoIzquierdo = null;
-	
-	public int getASCII(){
+
+	private int letra;
+
+	public int getASCII() {
 		return this.ASCII;
 	}
-	
-	public void setASCII(int ASCII){
+
+	public void setASCII(int ASCII) {
 		this.ASCII = ASCII;
 	}
-	
+
 	public void setFrecuencia(float frecuencia) {
 		this.frecuencia = frecuencia;
 	}
@@ -57,55 +59,72 @@ public class ArbolBinario {
 	}
 
 	public void imprimaArbol() {
-		
-		if (this.hijoIzquierdo != null){
-			System.out.print(frecuencia + ASCII + " ");
+
+		if (this.hijoIzquierdo != null) {
+			// System.out.print(frecuencia + ASCII + " ");
 			this.hijoIzquierdo.imprima();
 		}
-		if (this.hijoDerecho != null){
-			System.out.print(frecuencia + ASCII + " ");
+		System.out.println(frecuencia + " " + (char) ASCII + " ");
+		if (this.hijoDerecho != null) {
+			// System.out.print(frecuencia + ASCII + " ");
 			this.hijoDerecho.imprima();
 		}
-			
+
 	}
 
-	public ArbolBinario combinaFrecuencias(Nodo arbol_1, Nodo arbol_2) {
-		ArbolBinario nuevoArbol = new ArbolBinario();
-		nuevoArbol.frecuencia = arbol_1.getValor().getFrecuencia() + arbol_2.getValor().getFrecuencia();
+	public ArbolBinario(ArbolBinario arbol_1, ArbolBinario arbol_2) {
 
-		if (arbol_1.getValor().getFrecuencia() < arbol_2.getValor().getFrecuencia()) {
-			nuevoArbol.hijoIzquierdo = arbol_1.getValor();
-			nuevoArbol.hijoDerecho = arbol_2.getValor();
-		}
-		if (arbol_1.getValor().getFrecuencia() >= arbol_2.getValor().getFrecuencia()) {
-			nuevoArbol.hijoIzquierdo = arbol_2.getValor();
-			nuevoArbol.hijoDerecho = arbol_1.getValor();
-		}
-		return nuevoArbol;
+		this.frecuencia = arbol_1.getFrecuencia() + arbol_2.getFrecuencia();
+
+		//if (arbol_1.getFrecuencia() <= arbol_2.getFrecuencia()) {
+			this.hijoIzquierdo = arbol_1;
+			this.hijoDerecho = arbol_2;
+		//}
+		//if (arbol_1.getFrecuencia() > arbol_2.getFrecuencia()) {
+			//this.hijoIzquierdo = arbol_2;
+			//this.hijoDerecho = arbol_1;
+		//}
+		/*
+		 * if (arbol_1.getFrecuencia() == arbol_2.getFrecuencia()){
+		 * this.hijoIzquierdo = arbol_1; this.hijoDerecho = arbol_2; }
+		 */
 	}
-	
-	public String getCodigoHuffman(ArbolBinario raiz, int letra){
-		String codigo = null;
-		codigo = getCodigoHuffman(raiz, letra, raiz, codigo);
-		return codigo;
+
+	public void obtieneCodigosHuffman(TablaCodigos tabla, ArbolBinario arbol) {
+		String codigo = "";
+		obtieneCodigosHuffman(tabla, arbol, codigo);
 	}
-	
-	public String getCodigoHuffman(ArbolBinario actual, int letra, ArbolBinario padre, String codigo){
-		if (actual.ASCII != letra){
-			
+
+	public void obtieneCodigosHuffman(TablaCodigos tabla, ArbolBinario arbol, String codigo) {
+
+		if (arbol.hijoIzquierdo != null && arbol.hijoDerecho != null) {
+
+			ArbolBinario hijoIzquierdo = arbol.getHijoIzquierdo();
+			ArbolBinario hijoDerecho = arbol.getHijoDerecho();
+
 			codigo += "0";
-			getCodigoHuffman(actual.hijoIzquierdo, letra, actual, codigo);
-			codigo.substring(0, codigo.length()-1);
-			
+			obtieneCodigosHuffman(tabla, hijoIzquierdo, codigo);
+			codigo = codigo.substring(0, codigo.length() - 1);
+
 			codigo += "1";
-			getCodigoHuffman(actual.hijoDerecho, letra, actual, codigo);
-			codigo.substring(0, codigo.length()-1);
+			obtieneCodigosHuffman(tabla, hijoDerecho, codigo);
+			codigo = codigo.substring(0, codigo.length() - 1);
+
+		} else if (arbol.hijoIzquierdo != null && arbol.hijoDerecho == null) {
+			ArbolBinario hijoIzquierdo = arbol.hijoIzquierdo;
+
+			codigo += "0";
+			obtieneCodigosHuffman(tabla, hijoIzquierdo, codigo);
+			codigo = codigo.substring(0, codigo.length() - 1);
+		} else if (arbol.hijoIzquierdo == null && arbol.hijoDerecho != null) {
+			ArbolBinario hijoDerecho = arbol.hijoDerecho;
+
+			codigo += "1";
+			obtieneCodigosHuffman(tabla, hijoDerecho, codigo);
+			codigo = codigo.substring(0, codigo.length() - 1);
+		} else if (arbol.hijoIzquierdo == null && arbol.hijoDerecho == null) {
+			tabla.inserteDato(arbol.ASCII, codigo);
 		}
-		if (actual.ASCII == letra){
-			return codigo;
-		}
-		System.out.println("No aparecio la letra indicada en el arbol, se retornara un null");
-		return null;
 	}
 
 }
