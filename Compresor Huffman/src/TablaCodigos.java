@@ -6,7 +6,7 @@ public class TablaCodigos {
 
     private int ASCII;
     private String codigoHuff;
-    private int tamañoCodigo;
+    private int tamanoCodigo;
     private TablaCodigos siguiente = null;
     private TablaCodigos cola;
 
@@ -20,18 +20,27 @@ public class TablaCodigos {
     	this.codigoHuff = huff;
     }
     
-    public TablaCodigos(int dato, String huff, int tamañoCodigo){
+    public TablaCodigos(int dato, String huff, int tamanoCodigo){
     	this.ASCII = dato;
     	this.codigoHuff = huff;
-    	this.tamañoCodigo = tamañoCodigo;
+    	this.tamanoCodigo = tamanoCodigo;
     }
     
     public String getHuff(){
     	return this.codigoHuff;
     }
     
-    public void setTamaño(int tamaño){
-    	this.tamañoCodigo = tamaño;
+    public void settamano(int tamano){
+    	this.tamanoCodigo = tamano;
+    }
+    
+    public void setHuff(int dato, String codigo){
+    	TablaCodigos auxiliar = inicio;
+    	while (auxiliar != null){
+    		if (auxiliar.ASCII == dato) auxiliar.codigoHuff = codigo;
+    		auxiliar = auxiliar.siguiente;
+    	}
+    	
     }
     
     public void setHuff(String huff){
@@ -55,16 +64,16 @@ public class TablaCodigos {
     	return sacaHuff(dato);
     }
     
-    public int getTamaño(int dato){
+    public int getTamano(int dato){
     	TablaCodigos auxiliar = inicio;
     	for (int i=0; i<cantidadDatos; i++){
-    		if (auxiliar.ASCII == dato) return auxiliar.tamañoCodigo;
+    		if (auxiliar.ASCII == dato) return auxiliar.tamanoCodigo;
     		auxiliar = auxiliar.siguiente;
     	}
     	return 0;
     }
     
-    public int tamañoCodigo(int dato){
+    public int tamanoCodigo(int dato){
     	return (sacaHuff(dato)).length();
     }
     
@@ -92,8 +101,8 @@ public class TablaCodigos {
         }
     }
     
-    public void inserteDato(int dato, String huff, int tamaño) {
-        TablaCodigos insertado = new TablaCodigos(dato, huff, tamaño);
+    public void inserteDato(int dato, String huff, int tamano) {
+        TablaCodigos insertado = new TablaCodigos(dato, huff, tamano);
         if (cantidadDatos == 0 || inicio == null){
         	inicio = insertado;
         	cola = insertado;

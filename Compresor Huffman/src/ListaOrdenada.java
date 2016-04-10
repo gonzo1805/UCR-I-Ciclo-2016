@@ -28,16 +28,20 @@ public class ListaOrdenada {
 				Nodo actual = raiz;
 				Nodo anterior = raiz;
 				while (actual != null) {
-					if (actual.getSiguiente() == null) {
+					if (actual.getSiguiente() == null && actual.getValor().getFrecuencia() != nuevoNodo.getValor().getFrecuencia()) {
 						actual.setSiguiente(nuevoNodo);
 						cantidadNodos++;
 						return;
 					}
-					if (nuevoNodo.getValor().getFrecuencia() < actual.getValor().getFrecuencia()) {
-						nuevoNodo.setSiguiente(actual);	
-						anterior.setSiguiente(nuevoNodo);										
+					if (actual.getSiguiente() == null && actual.getValor().getFrecuencia() == nuevoNodo.getValor().getFrecuencia()){
+						nuevoNodo.setSiguiente(actual);
+						anterior.setSiguiente(nuevoNodo);
 						cantidadNodos++;
 						return;
+					}
+					if (nuevoNodo.getValor().getFrecuencia() > actual.getValor().getFrecuencia()) {
+						anterior = actual;
+						actual = actual.getSiguiente();	
 					}
 					else if (nuevoNodo.getValor().getFrecuencia() == actual.getValor().getFrecuencia()){
 						nuevoNodo.setSiguiente(actual);
@@ -45,9 +49,11 @@ public class ListaOrdenada {
 						cantidadNodos++;
 						return;
 					}
-					else if (nuevoNodo.getValor().getFrecuencia() >= actual.getValor().getFrecuencia()) {
-						anterior = actual;
-						actual = actual.getSiguiente();					
+					else if (nuevoNodo.getValor().getFrecuencia() < actual.getValor().getFrecuencia()) {
+						nuevoNodo.setSiguiente(actual);	
+						anterior.setSiguiente(nuevoNodo);										
+						cantidadNodos++;
+						return;				
 																	
 					}
 					

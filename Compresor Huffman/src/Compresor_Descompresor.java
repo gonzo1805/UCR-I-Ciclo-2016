@@ -64,31 +64,36 @@ public class Compresor_Descompresor {
 			for (int f = 0; f <= 255; f++) {
 				if (frecuencias[f] != 0) {
 					out.write(f);
-					// int d = tablaHuff.tamañoCodigo(f);
-					out.write(tablaHuff.tamañoCodigo(f));
-					// String a = tablaHuff.getCodigo(f);
+					int d = tablaHuff.tamanoCodigo(f);
+					out.write(tablaHuff.tamanoCodigo(f));
+					String a = tablaHuff.getCodigo(f);
+					System.out.println(a);
 					// out.writeBits(tablaHuff.getCodigo(f));
 
 					// System.out.println("El codigo de " + f + " es " +
 					// tablaHuff.getCodigo(f));
 				}
 			}
-			out.write(13);
-			out.write(13);
+			
 			for (int f = 0; f <= 255; f++) {
 				if (frecuencias[f] != 0) {
 					// out.write(f);
-					// int d = tablaHuff.tamañoCodigo(f);
-					// out.write(tablaHuff.tamañoCodigo(f));
-					// String a = tablaHuff.getCodigo(f);
+					// int d = tablaHuff.tamanoCodigo(f);
+					// out.write(tablaHuff.tamanoCodigo(f));
+					String a = tablaHuff.getCodigo(f);
 					out.writeBits(tablaHuff.getCodigo(f));
-
+					
 					// System.out.println("El codigo de " + f + " es " +
 					// tablaHuff.getCodigo(f));
 				}
 			}
-			out.write(13);
-			out.write(13);
+			//out.writeBits("11111111");
+			//out.write(10);
+			//out.write(10);
+			//out.write(13);
+			// out.write(13);
+			// out.write(13);
+			// out.write(10);
 			// archivo = new
 			// FileInputStream("C:\\Users\\Gonzalo\\Desktop\\troll.gonzalo");
 			// in = new BitInputStream ( new
@@ -100,14 +105,19 @@ public class Compresor_Descompresor {
 				i = archivo.read();
 				out.writeBits(tablaHuff.getCodigo(i));
 			}
-
-			archivo = new FileInputStream("C:\\Users\\Gonzalo\\Desktop\\troll.gonzalo");
-			System.out.println(archivo.read());
-			System.out.println(archivo.read());
-			System.out.println(archivo.read());
-			System.out.println(archivo.read());
-			System.out.println(archivo.read());
 			archivo.close();
+			out.close();
+			//archivo = new FileInputStream("C:\\Users\\Gonzalo\\Desktop\\troll.gonzalo");
+			/*
+			 * while (archivo.available() != 0){
+			 * System.out.println(archivo.read()); }
+			 */
+			/*System.out.println(archivo.read());
+			System.out.println(archivo.read());
+			System.out.println(archivo.read());
+			System.out.println(archivo.read());
+			System.out.println(archivo.read());
+			archivo.close();*/
 
 		}
 
@@ -157,66 +167,100 @@ public class Compresor_Descompresor {
 
 				// if (in.read() != 59){return;}
 				int dato = in.read();
-				int tamañoCodigo = in.read();
-				tabla.inserteDato(dato, "", tamañoCodigo);
+				int tamanoCodigo = in.read();
+				tabla.inserteDato(dato, "", tamanoCodigo);
 				aux--;
-				// for (int a=0; a<tamañoCodigo; a++ ){
+				// for (int a=0; a<tamanoCodigo; a++ ){
 				// codigo += Integer.toString(in.readBit());
 				// }
 			}
-			in.read();
-			in.read();
-			for (int t=0; t<255; t++){
-				if (tabla.existe(t) == true){
-					int tamaño = tabla.getTamaño(t);
-					while (tamaño != 0){
-						codigo += in.readBit(); 
-						tamaño--;
+			for (int t = 0; t < 255; t++) {
+				if (tabla.existe(t) == true) {
+					int tamano = tabla.getTamano(t);
+					while (tamano != 0) {
+						codigo += in.readBit();
+						tamano--;
 					}
+					tabla.setHuff(t, codigo);
+					codigo = "";
 				}
 			}
-
-			/*ArbolBinario insercion = new ArbolBinario(0, dato);
-			for (int a = 0; a <= codigo.length(); a++) {
-				if (a == codigo.length() - 1) {
-					String b = Character.toString(codigo.charAt(a));
-					if (Integer.parseInt(b) == 0) {
-						auxiliar.setHijoIzquierdo(insercion);
-						break;
+			for (int u = 0; u < 255; u++) {
+				if (tabla.existe(u) == true) {
+					ArbolBinario insercion = new ArbolBinario(0, u);
+					for (int a = 0; a <= tabla.getCodigo(u).length(); a++) {
+						if (a == tabla.getCodigo(u).length() - 1) {
+							String b = Character.toString(tabla.getCodigo(u).charAt(a));
+							if (Integer.parseInt(b) == 0) {
+								auxiliar.setHijoIzquierdo(insercion);
+								break;
+							}
+							b = Character.toString(tabla.getCodigo(u).charAt(a));
+							if (Integer.parseInt(b) == 1) {
+								auxiliar.setHijoDerecho(insercion);
+								break;
+							}
+						}
+						String b = Character.toString(tabla.getCodigo(u).charAt(a));
+						if (Integer.parseInt(b) == 1) {
+							if (auxiliar.getHijoDerecho() == null) {
+								auxiliar.creaHijoDerecho();
+								auxiliar = auxiliar.getHijoDerecho();
+							} else if (auxiliar.getHijoDerecho() != null) {
+								auxiliar = auxiliar.getHijoDerecho();
+							}
+						}
+						b = Character.toString(tabla.getCodigo(u).charAt(a));
+						if (Integer.parseInt(b) == 0) {
+							if (auxiliar.getHijoIzquierdo() == null) {
+								auxiliar.creaHijoIzquierdo();
+								auxiliar = auxiliar.getHijoIzquierdo();
+							} else if (auxiliar.getHijoIzquierdo() != null) {
+								auxiliar = auxiliar.getHijoIzquierdo();
+							}
+						}
 					}
-					b = Character.toString(codigo.charAt(a));
-					if (Integer.parseInt(b) == 1) {
-						auxiliar.setHijoDerecho(insercion);
-						break;
-					}
-				}
-				String b = Character.toString(codigo.charAt(a));
-				if (Integer.parseInt(b) == 1) {
-					if (auxiliar.getHijoDerecho() == null) {
-						auxiliar.creaHijoDerecho();
-						auxiliar = auxiliar.getHijoDerecho();
-					} else if (auxiliar.getHijoDerecho() != null) {
-						auxiliar = auxiliar.getHijoDerecho();
-					}
-				}
-				b = Character.toString(codigo.charAt(a));
-				if (Integer.parseInt(b) == 0) {
-					if (auxiliar.getHijoIzquierdo() == null) {
-						auxiliar.creaHijoIzquierdo();
-						auxiliar = auxiliar.getHijoIzquierdo();
-					} else if (auxiliar.getHijoIzquierdo() != null) {
-						auxiliar = auxiliar.getHijoIzquierdo();
-					}
+					auxiliar = raiz;
+					aux--;
+					codigo = "";
 				}
 			}
-			auxiliar = raiz;
-			aux--;
-			codigo = "";*/
-
-			// raiz.imprimaArbol();
+			raiz.imprimaArbol();
 			// in.close();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
+			FileOutputStream escritura = new FileOutputStream("C:\\Users\\Gonzalo\\Desktop\\trollDescom.txt");
+			BitOutputStream out = new BitOutputStream(escritura);
+			auxiliar = raiz;
+			int x = 8;
+			//while (x != 0) {
+				/*System.out.println(*///in.read()/*)*/;
+				//x--;
+			//}
+			//in.read();
+			//System.out.println(in.available());
+			while (in.available() != 0) {
+				if (auxiliar.getHijoDerecho() == null && auxiliar.getHijoIzquierdo() == null) {
+					out.write(auxiliar.getASCII());
+					auxiliar = raiz;
+				}
+				int b = in.readBit();
+					if (b == 0) {
+
+						auxiliar = auxiliar.getHijoIzquierdo();
+
+					} else if (b == 1) {
+
+						auxiliar = auxiliar.getHijoDerecho();
+
+					}
+				}
+				out.close();
+				in.close();
+
+			
+		}catch(
+
+	Exception ex)
+	{
+		ex.printStackTrace();
 	}
-}
+}}
