@@ -6,11 +6,15 @@ import java.io.InputStream;
 
 public class Main {
 
-	ListaOrdenada lista = new ListaOrdenada();
+	//ListaOrdenada lista = new ListaOrdenada();
 
 	public static void main(String[] args) {
-
-		ListaOrdenada lista = new ListaOrdenada();
+		
+		Compresor_Descompresor accion = new Compresor_Descompresor();
+		accion.Comprime();
+		accion.Descomprime();
+		
+		/*ListaOrdenada lista = new ListaOrdenada();
 		FileInputStream archivo = null;
 		float[] frecuencias = new float[256];
 		Main main = new Main();
@@ -33,6 +37,7 @@ public class Main {
 					lista.insertarArbol(arbol);
 				}
 			}
+			archivo.close();
 			lista.imprimaLista();
 			// main.creaEInsertaNodos(frecuencias, cantidadEntradas);
 			// (nodo.getValor()).imprima();
@@ -43,20 +48,24 @@ public class Main {
 			TablaCodigos tablaHuff = new TablaCodigos();
 			arbol.obtieneCodigosHuffman(tablaHuff, arbol);
 			tablaHuff.imprimaTabla();
-			
+
 			archivo = new FileInputStream("C:\\Users\\Gonzalo\\git\\UCR-I-Ciclo-2016\\Compresor Huffman\\texto.txt");
 			
-			FileOutputStream archivo2 = new FileOutputStream("C:\\Users\\Gonzalo\\Desktop\\troll.txt");
+			/**
+			 * archivo2 es el archivo que se va a guardar 
+			 * out 
+			 */
+			/*FileOutputStream archivo2 = new FileOutputStream("C:\\Users\\Gonzalo\\Desktop\\troll.gonzalo");
 			BitOutputStream out = new BitOutputStream(archivo2);
 			
-			
-			while (archivo.available() != 0){
+			/**
+			 * While para la compresion del archivo
+			 */
+			/*while (archivo.available() != 0) {
 				i = archivo.read();
-				out.writeBit(tablaHuff.getCodigo(i));
+				String codigo = tablaHuff.getCodigo(i);
+				out.writeBits(tablaHuff.getCodigo(i));
 			}
-			// System.out.println(frecuencias[65]);
-			// System.out.println(archivo.available());
-			// System.out.println(cantidadEntradas);
 
 		}
 
@@ -64,11 +73,9 @@ public class Main {
 			ex.printStackTrace();
 		}
 
-	}
-	
-	
+	}*/
 
-	public void creaEInsertaNodos(float[] frecuencias, float cantidadEntradas) {
+	/*public void creaEInsertaNodos(float[] frecuencias, float cantidadEntradas) {
 		for (int i = 0; i <= 255; i++) {
 			if (frecuencias[i] / cantidadEntradas != 0) {
 				ArbolBinario arbol = new ArbolBinario((frecuencias[i] / cantidadEntradas), i);
@@ -76,6 +83,7 @@ public class Main {
 				lista.insertarNodo(nodo);
 			}
 		}
-	}
+	}*/
 
+}
 }

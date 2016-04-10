@@ -39,9 +39,12 @@ public class TablaCodigos {
         this.ASCII = dato;
     }
 
-    public int getCodigo(int dato) {
-        String meh = sacaHuff(dato);
-    	return Integer.parseInt(meh);
+    public String getCodigo(int dato) {   
+    	return sacaHuff(dato);
+    }
+    
+    public int tamañoCodigo(int dato){
+    	return (sacaHuff(dato)).length();
     }
     
 

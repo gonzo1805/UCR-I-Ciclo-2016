@@ -39,13 +39,13 @@ public class ListaOrdenada {
 						cantidadNodos++;
 						return;
 					}
-					if (nuevoNodo.getValor().getFrecuencia() == actual.getValor().getFrecuencia()){
+					else if (nuevoNodo.getValor().getFrecuencia() == actual.getValor().getFrecuencia()){
 						nuevoNodo.setSiguiente(actual);
 						anterior.setSiguiente(nuevoNodo);
 						cantidadNodos++;
 						return;
 					}
-					if (nuevoNodo.getValor().getFrecuencia() >= actual.getValor().getFrecuencia()) {
+					else if (nuevoNodo.getValor().getFrecuencia() >= actual.getValor().getFrecuencia()) {
 						anterior = actual;
 						actual = actual.getSiguiente();					
 																	

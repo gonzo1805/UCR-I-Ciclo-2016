@@ -5,6 +5,7 @@ public class ArbolBinario {
 	private int ASCII;
 	private ArbolBinario hijoDerecho = null;
 	private ArbolBinario hijoIzquierdo = null;
+	
 
 	private int letra;
 
@@ -39,9 +40,17 @@ public class ArbolBinario {
 	public void setHijoDerecho(ArbolBinario hijo) {
 		this.hijoDerecho = hijo;
 	}
+	
+	public void creaHijoIzquierdo(){
+		this.hijoIzquierdo = new ArbolBinario();
+	}
+	
+	public void creaHijoDerecho(){
+		this.hijoDerecho = new ArbolBinario();
+	}
 
 	public ArbolBinario() {
-
+		
 	}
 
 	public ArbolBinario(float frecuencia, int ASCII) {
@@ -75,7 +84,7 @@ public class ArbolBinario {
 	public ArbolBinario(ArbolBinario arbol_1, ArbolBinario arbol_2) {
 
 		this.frecuencia = arbol_1.getFrecuencia() + arbol_2.getFrecuencia();
-
+		
 		//if (arbol_1.getFrecuencia() <= arbol_2.getFrecuencia()) {
 			this.hijoIzquierdo = arbol_1;
 			this.hijoDerecho = arbol_2;
