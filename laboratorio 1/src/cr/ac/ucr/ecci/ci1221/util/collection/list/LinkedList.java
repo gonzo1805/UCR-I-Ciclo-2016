@@ -9,7 +9,7 @@ import cr.ac.ucr.ecci.ci1221.util.collection.Iterator;
  */
 public class LinkedList<E> implements List<E> {
 
-    private Nodo<E> raiz;
+    private Nodo<E> cabeza;
     private Nodo<E> dato;
     private static int cantidadNodos = 0;
 
@@ -21,14 +21,14 @@ public class LinkedList<E> implements List<E> {
      */
     @Override
     public void add(E element, int position) {
-        Nodo<E> nodo = raiz;
-        Nodo<E> anterior = raiz;
+        Nodo<E> nodo = cabeza;
+        Nodo<E> anterior = cabeza;
 
         if (position == 1) {
             nodo = new Nodo<>();
             nodo.valor = element;
-            nodo.next = raiz;
-            raiz = nodo;
+            nodo.next = cabeza;
+            cabeza = nodo;
             cantidadNodos++;
         } else if (position > 1) {
             for (int i = 0; i < position; i++) {
@@ -51,12 +51,12 @@ public class LinkedList<E> implements List<E> {
     @Override
     public void remove(int position) {
         if (position == 1) {
-            raiz = raiz.next;
+        	cabeza = cabeza.next;
             cantidadNodos--;
             return;
         }
-        Nodo<E> nodo = raiz;
-        Nodo<E> anterior = raiz;
+        Nodo<E> nodo = cabeza;
+        Nodo<E> anterior = cabeza;
         if (position > 1) {
             for (int i = 0; i < position; i++) {
                 anterior = nodo;
@@ -75,7 +75,7 @@ public class LinkedList<E> implements List<E> {
      */
     @Override
     public int find(E element) {
-        Nodo<E> nodo = raiz;
+        Nodo<E> nodo = cabeza;
         for (int i = 0; i <= cantidadNodos; i++) {
             if (nodo.valor == element) {
                 return i;
@@ -94,11 +94,11 @@ public class LinkedList<E> implements List<E> {
      */
     @Override
     public E get(int position) {
-        if (raiz == null) {
+        if (cabeza == null) {
             System.out.println("La lista esta vacia");
             return null;
         }
-        Nodo<E> nodo = raiz;
+        Nodo<E> nodo = cabeza;
         for (int i = 0; i < position; i++) {
             nodo = nodo.next;
         }
@@ -120,11 +120,11 @@ public class LinkedList<E> implements List<E> {
     public E set(int position, E element) {
         E retorno;
         if (position == 1) {
-            retorno = raiz.valor;
-            raiz.valor = element;
+            retorno = cabeza.valor;
+            cabeza.valor = element;
             return retorno;
         }
-        Nodo<E> actual = raiz;
+        Nodo<E> actual = cabeza;
 
         if (position > 1) {
             for (int i = 0; i < position; i++) {
@@ -146,13 +146,13 @@ public class LinkedList<E> implements List<E> {
      */
     @Override
     public void add(E element) {
-        if (raiz == null) {
-            raiz.valor = element;
+        if (cabeza == null) {
+        	cabeza.valor = element;
             cantidadNodos++;
             return;
         }
-        Nodo<E> actual = raiz;
-        Nodo<E> anterior = raiz;
+        Nodo<E> actual = cabeza;
+        Nodo<E> anterior = cabeza;
         for (int i = 0; i < cantidadNodos; i++) {
             anterior = actual;
             actual = actual.next;
@@ -169,13 +169,13 @@ public class LinkedList<E> implements List<E> {
      */
     @Override
     public void remove(E element) {
-        if (raiz.valor == element) {
-            raiz = raiz.next;
+        if (cabeza.valor == element) {
+        	cabeza = cabeza.next;
             cantidadNodos--;
             return;
         }
-        Nodo<E> anterior = raiz;
-        Nodo<E> nodo = raiz;
+        Nodo<E> anterior = cabeza;
+        Nodo<E> nodo = cabeza;
         while (nodo.valor != element) {
             anterior = nodo;
             nodo = nodo.next;
@@ -193,7 +193,7 @@ public class LinkedList<E> implements List<E> {
      */
     @Override
     public boolean contains(E element) {
-        Nodo<E> nodo = raiz;
+        Nodo<E> nodo = cabeza;
         for (int i = 0; i < cantidadNodos; i++) {
             if (nodo.valor == element) {
                 return true;
@@ -231,8 +231,8 @@ public class LinkedList<E> implements List<E> {
      */
     @Override
     public void clear() {
-        raiz.next = null;
-        raiz.valor = null;
+    	cabeza.next = null;
+    	cabeza.valor = null;
     }
 
     /**
@@ -254,17 +254,22 @@ public class LinkedList<E> implements List<E> {
     }
 
     private class B<E> implements Iterator<E> {
-
+    	int actual = 0;
+    	
         @Override
         public boolean hasNext() {
-
-            return false;
+        	return actual < cantidadNodos;
         }
 
         @Override
         public E next() {
-
-            return null;
+        	if (actual == cantidadNodos) System.out.println("Ya esta en el final de la lista");
+        	Nodo<E> auxiliar = (Nodo<E>) cabeza;
+        	for (int i=0; i<actual; i++){
+        		auxiliar = auxiliar.getNext();
+        	}
+        	actual++;
+        	return auxiliar.valor;
         }
     }
 
@@ -275,6 +280,18 @@ public class LinkedList<E> implements List<E> {
 
         public void setValor(E valor) {
             this.valor = valor;
+        }
+        
+        public E getValor(){
+        	return this.valor;
+        }
+        
+        public void setNext(Nodo siguiente){
+        	this.next = siguiente;
+        }
+        
+        public Nodo getNext(){
+        	return this.next;
         }
     }
 }

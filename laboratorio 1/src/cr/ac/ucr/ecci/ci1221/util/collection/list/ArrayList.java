@@ -267,16 +267,24 @@ public class ArrayList<E> implements List<E> {
 	}
 
 	private class A<E> implements Iterator<E> {
+		int actual = 0;
 		@Override
 		public boolean hasNext() {
-			// TODO Auto-generated method stub
-			return false;
+			return actual < cantidadDatos; 
 		}
 
 		@Override
 		public E next() {
-			// TODO Auto-generated method stub
-			return null;
+			if (actual > cantidadDatos) {
+				System.out.println("Ya esta en el final de la lista");
+				return null;
+			}
+			else {
+				E retorno = (E) lista[actual];
+			actual++;
+			return retorno;
+			}
+			
 		}
 	}
 }
