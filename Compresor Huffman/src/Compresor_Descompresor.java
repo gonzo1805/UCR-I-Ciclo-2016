@@ -23,7 +23,7 @@ public class Compresor_Descompresor {
 		 */
 		ListaOrdenada lista = new ListaOrdenada();
 		FileInputStream archivo = null;
-		float[] frecuencias = new float[256];
+		float[] frecuencias = new float[255];
 		//Main main = new Main();
 		int cantidadEntradas = 0;
 
@@ -34,7 +34,7 @@ public class Compresor_Descompresor {
 			 * Crea el archivo para la lectura a partir de la direccion especificada
 			 */
 			archivo = new FileInputStream("C:\\Users\\Gonzalo\\git\\UCR-I-Ciclo-2016\\Compresor Huffman\\texto.txt");
-			
+			//archivo = new FileInputStream("C:\\Users\\Gonzalo\\git\\UCR-I-Ciclo-2016\\Compresor Huffman\\Untitled.jpg");
 			/**
 			 * While para la lectura del archivo y 
 			 */
@@ -48,7 +48,7 @@ public class Compresor_Descompresor {
 			/**
 			 * For para la creacion de las frecuencias y la lista 
 			 */
-			for (int o = 0; o <= 255; o++) {
+			for (int o = 0; o < 255; o++) {
 				if (frecuencias[o] / cantidadEntradas != 0) {
 					ArbolBinario arbol = new ArbolBinario((frecuencias[o] / cantidadEntradas), o);
 					lista.insertarArbol(arbol);
@@ -85,12 +85,12 @@ public class Compresor_Descompresor {
 			 * Reapertura del archivo para la compresion
 			 */
 			archivo = new FileInputStream("C:\\Users\\Gonzalo\\git\\UCR-I-Ciclo-2016\\Compresor Huffman\\texto.txt");
-			
+			//archivo = new FileInputStream("C:\\Users\\Gonzalo\\git\\UCR-I-Ciclo-2016\\Compresor Huffman\\Untitled.jpg");
 
 			/**
 			 * archivo2 es el archivo que se va a guardar out el que nos habilita al uso de bits
 			 */
-			FileOutputStream archivo2 = new FileOutputStream("C:\\Users\\Gonzalo\\Desktop\\troll.gonzalo");
+			FileOutputStream archivo2 = new FileOutputStream("C:\\Users\\Gonzalo\\Desktop\\troll.huf");
 			BitOutputStream out = new BitOutputStream(archivo2);
 			
 			/**
@@ -109,14 +109,14 @@ public class Compresor_Descompresor {
 			 * y luego tambien sin ninguna separacion viene todo el archivo comprimido que se leyo del original
 			 */
 			int cantidadCaracteres = 0;
-			for (int f = 0; f <= 255; f++) {
+			for (int f = 0; f < 255; f++) {
 				if (frecuencias[f] != 0) {
 					cantidadCaracteres++;
 				}
 			}
 			out.write(cantidadCaracteres);
 			
-			for (int f = 0; f <= 255; f++) {
+			for (int f = 0; f < 255; f++) {
 				if (frecuencias[f] != 0) {
 					out.write(f);
 					/**
@@ -133,7 +133,7 @@ public class Compresor_Descompresor {
 			}
 			
 			
-			for (int f = 0; f <= 255; f++) {
+			for (int f = 0; f < 255; f++) {
 				if (frecuencias[f] != 0) {
 					/**
 					 * String usado para depuracion
@@ -180,7 +180,7 @@ public class Compresor_Descompresor {
 			 * Apertura del archivo previamente comprimido y creacion de in
 			 * que nos permite la lectura por bits del mismo
 			 */
-			archivo = new FileInputStream("C:\\Users\\Gonzalo\\Desktop\\troll.gonzalo");
+			archivo = new FileInputStream("C:\\Users\\Gonzalo\\Desktop\\troll.huf");
 			BitInputStream in = new BitInputStream(archivo);
 
 			/**
@@ -307,6 +307,7 @@ public class Compresor_Descompresor {
 			 * Apertura del nuevo archivo donde sera almacenado o escrito el nuevo archivo esta vez ya descomprimido
 			 */
 			FileOutputStream escritura = new FileOutputStream("C:\\Users\\Gonzalo\\Desktop\\trollDescom.txt");
+			//FileOutputStream escritura = new FileOutputStream("C:\\Users\\Gonzalo\\Desktop\\imgDescom.jpg");
 			BitOutputStream out = new BitOutputStream(escritura);
 			
 			/**
