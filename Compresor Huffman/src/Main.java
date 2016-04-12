@@ -7,20 +7,21 @@ import java.io.InputStream;
 public class Main {
 
 	public static void main(String[] args) {
-		/*String CD = "c";
+		String C = "-c";
+		String D = "-d";
 		String Inicio = "";
-		String Destino = "";*/
-		
-		/*if(args.length!=0){
-            //CD = args[0];
-            Inicio = args[1];
-            Destino = args[2];
-        }
-		System.out.println(CD + Inicio + Destino);
-		if (args[0] == CD){
-			System.out.println(CD);
-		}*/
+		String Destino = "";
 		Compresor_Descompresor accion = new Compresor_Descompresor();
+		/*if(args.length!=0){
+        }
+		//System.out.println(CD + Inicio + Destino);
+		if (C.equals(args[0])){
+			accion.Comprime(args[1], args[2]);
+		}
+		else if (D.equals(args[0])){
+			accion.Descomprime(args[1], args[2]);
+		}*/
+		
 		accion.Comprime();
 		accion.Descomprime();
 

@@ -13,7 +13,7 @@ public class Compresor_Descompresor {
 	 * Metodo que comprime todo el archivo original y lo guarda en un archivo .huff 
 	 * Cada parte se explicara dentro del metodo 
 	 */
-	public void Comprime() {
+	public void Comprime(/*String inicio, String destino*/) {
 		/**"Atributos" del metodo (que en este caso algunos terminan siendo 
 		 * instancias o variables locales)
 		 * Lista: la lista ordenada que se usara para la compresion
@@ -23,7 +23,7 @@ public class Compresor_Descompresor {
 		 */
 		ListaOrdenada lista = new ListaOrdenada();
 		FileInputStream archivo = null;
-		float[] frecuencias = new float[255];
+		float[] frecuencias = new float[256];
 		//Main main = new Main();
 		int cantidadEntradas = 0;
 
@@ -33,7 +33,8 @@ public class Compresor_Descompresor {
 			/**
 			 * Crea el archivo para la lectura a partir de la direccion especificada
 			 */
-			archivo = new FileInputStream("C:\\Users\\Gonzalo\\git\\UCR-I-Ciclo-2016\\Compresor Huffman\\texto.txt");
+			archivo = new FileInputStream("C:\\Users\\b35584\\Desktop\\bla.jpg");
+			//archivo = new FileInputStream("C:\\Users\\Gonzalo\\git\\UCR-I-Ciclo-2016\\Compresor Huffman\\texto.txt");
 			//archivo = new FileInputStream("C:\\Users\\Gonzalo\\git\\UCR-I-Ciclo-2016\\Compresor Huffman\\Untitled.jpg");
 			/**
 			 * While para la lectura del archivo y 
@@ -84,13 +85,15 @@ public class Compresor_Descompresor {
 			/**
 			 * Reapertura del archivo para la compresion
 			 */
-			archivo = new FileInputStream("C:\\Users\\Gonzalo\\git\\UCR-I-Ciclo-2016\\Compresor Huffman\\texto.txt");
+			archivo = new FileInputStream("C:\\User\\b35584\\Desktop\\bla.jpg");
+			//archivo = new FileInputStream("C:\\Users\\Gonzalo\\git\\UCR-I-Ciclo-2016\\Compresor Huffman\\texto.txt");
 			//archivo = new FileInputStream("C:\\Users\\Gonzalo\\git\\UCR-I-Ciclo-2016\\Compresor Huffman\\Untitled.jpg");
 
 			/**
 			 * archivo2 es el archivo que se va a guardar out el que nos habilita al uso de bits
 			 */
-			FileOutputStream archivo2 = new FileOutputStream("C:\\Users\\Gonzalo\\Desktop\\troll.huf");
+			FileOutputStream archivo2 = new FileOutputStream("C:\\Users\\b35584\\Desktop\\troll.huf");
+			//FileOutputStream archivo2 = new FileOutputStream("C:\\Users\\Gonzalo\\Desktop\\troll.huf");
 			BitOutputStream out = new BitOutputStream(archivo2);
 			
 			/**
@@ -165,7 +168,7 @@ public class Compresor_Descompresor {
 	 * Metodo que descomprime un archivo previamente comprimido por este compresor, 
 	 * se especificara cada parte dentro del metodo.
 	 */
-	public void Descomprime() {
+	public void Descomprime(/*String inicio, String destino*/) {
 		
 		/**"Atributos" del metodo (que en este caso algunos terminan siendo 
 		 * instancias o variables locales)
@@ -180,7 +183,8 @@ public class Compresor_Descompresor {
 			 * Apertura del archivo previamente comprimido y creacion de in
 			 * que nos permite la lectura por bits del mismo
 			 */
-			archivo = new FileInputStream("C:\\Users\\Gonzalo\\Desktop\\troll.huf");
+			archivo = new FileInputStream("C:\\Users\\b35584\\Desktop\\troll.huf");
+			//archivo = new FileInputStream("C:\\Users\\Gonzalo\\Desktop\\troll.huf");
 			BitInputStream in = new BitInputStream(archivo);
 
 			/**
@@ -306,7 +310,8 @@ public class Compresor_Descompresor {
 			/**
 			 * Apertura del nuevo archivo donde sera almacenado o escrito el nuevo archivo esta vez ya descomprimido
 			 */
-			FileOutputStream escritura = new FileOutputStream("C:\\Users\\Gonzalo\\Desktop\\trollDescom.txt");
+			FileOutputStream escritura = new FileOutputStream("C:\\User\\b35584\\Desktop\\descom.jpg");
+			//FileOutputStream escritura = new FileOutputStream("C:\\Users\\Gonzalo\\Desktop\\trollDescom.txt");
 			//FileOutputStream escritura = new FileOutputStream("C:\\Users\\Gonzalo\\Desktop\\imgDescom.jpg");
 			BitOutputStream out = new BitOutputStream(escritura);
 			
