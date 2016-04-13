@@ -23,7 +23,7 @@ public class Compresor_Descompresor {
 		 */
 		ListaOrdenada lista = new ListaOrdenada();
 		FileInputStream archivo = null;
-		float[] frecuencias = new float[255];
+		float[] frecuencias = new float[256];
 		//Main main = new Main();
 		int cantidadEntradas = 0;
 
@@ -33,8 +33,8 @@ public class Compresor_Descompresor {
 			/**
 			 * Crea el archivo para la lectura a partir de la direccion especificada
 			 */
-			archivo = new FileInputStream("C:\\Users\\Gonzalo\\git\\UCR-I-Ciclo-2016\\Compresor Huffman\\texto.txt");
-			//archivo = new FileInputStream("C:\\Users\\Gonzalo\\git\\UCR-I-Ciclo-2016\\Compresor Huffman\\Untitled.jpg");
+			//archivo = new FileInputStream("C:\\Users\\Gonzalo\\git\\UCR-I-Ciclo-2016\\Compresor Huffman\\texto.txt");
+			archivo = new FileInputStream("C:\\Users\\Gonzalo\\git\\UCR-I-Ciclo-2016\\Compresor Huffman\\Untitled.jpg");
 			/**
 			 * While para la lectura del archivo y 
 			 */
@@ -48,7 +48,7 @@ public class Compresor_Descompresor {
 			/**
 			 * For para la creacion de las frecuencias y la lista 
 			 */
-			for (int o = 0; o < 255; o++) {
+			for (int o = 0; o < 256; o++) {
 				if (frecuencias[o] / cantidadEntradas != 0) {
 					ArbolBinario arbol = new ArbolBinario((frecuencias[o] / cantidadEntradas), o);
 					lista.insertarArbol(arbol);
@@ -84,8 +84,8 @@ public class Compresor_Descompresor {
 			/**
 			 * Reapertura del archivo para la compresion
 			 */
-			archivo = new FileInputStream("C:\\Users\\Gonzalo\\git\\UCR-I-Ciclo-2016\\Compresor Huffman\\texto.txt");
-			//archivo = new FileInputStream("C:\\Users\\Gonzalo\\git\\UCR-I-Ciclo-2016\\Compresor Huffman\\Untitled.jpg");
+			//archivo = new FileInputStream("C:\\Users\\Gonzalo\\git\\UCR-I-Ciclo-2016\\Compresor Huffman\\texto.txt");
+			archivo = new FileInputStream("C:\\Users\\Gonzalo\\git\\UCR-I-Ciclo-2016\\Compresor Huffman\\Untitled.jpg");
 
 			/**
 			 * archivo2 es el archivo que se va a guardar out el que nos habilita al uso de bits
@@ -109,14 +109,14 @@ public class Compresor_Descompresor {
 			 * y luego tambien sin ninguna separacion viene todo el archivo comprimido que se leyo del original
 			 */
 			int cantidadCaracteres = 0;
-			for (int f = 0; f < 255; f++) {
+			for (int f = 0; f < 256; f++) {
 				if (frecuencias[f] != 0) {
 					cantidadCaracteres++;
 				}
 			}
 			out.write(cantidadCaracteres);
 			
-			for (int f = 0; f < 255; f++) {
+			for (int f = 0; f < 256; f++) {
 				if (frecuencias[f] != 0) {
 					out.write(f);
 					/**
@@ -133,7 +133,7 @@ public class Compresor_Descompresor {
 			}
 			
 			
-			for (int f = 0; f < 255; f++) {
+			for (int f = 0; f < 256; f++) {
 				if (frecuencias[f] != 0) {
 					/**
 					 * String usado para depuracion
@@ -241,7 +241,7 @@ public class Compresor_Descompresor {
 			 * Lee los codigos respectivos para cada ASCII consultando la tabla para el tamaño del codigo
 			 * luego los asigna a cada ASCII en la tabla
 			 */
-			for (int t = 0; t < 255; t++) {
+			for (int t = 0; t < 256; t++) {
 				if (tabla.existe(t) == true) {
 					int tamano = tabla.getTamano(t);
 					while (tamano != 0) {
@@ -258,7 +258,7 @@ public class Compresor_Descompresor {
 			 * para poder permitir la descompresion del archivo, todo a partir de los codigos conseguidos en el paso anterior.
 			 * Todo con la condicional de que el ASCII existe en la tabla, si no lo busca
 			 */
-			for (int u = 0; u < 255; u++) {
+			for (int u = 0; u < 256; u++) {
 				if (tabla.existe(u) == true) {
 					ArbolBinario insercion = new ArbolBinario(0, u);
 					for (int a = 0; a <= tabla.getCodigo(u).length(); a++) {
@@ -306,8 +306,8 @@ public class Compresor_Descompresor {
 			/**
 			 * Apertura del nuevo archivo donde sera almacenado o escrito el nuevo archivo esta vez ya descomprimido
 			 */
-			FileOutputStream escritura = new FileOutputStream("C:\\Users\\Gonzalo\\Desktop\\trollDescom.txt");
-			//FileOutputStream escritura = new FileOutputStream("C:\\Users\\Gonzalo\\Desktop\\imgDescom.jpg");
+			//FileOutputStream escritura = new FileOutputStream("C:\\Users\\Gonzalo\\Desktop\\trollDescom.txt");
+			FileOutputStream escritura = new FileOutputStream("C:\\Users\\Gonzalo\\Desktop\\imgDescom.jpg");
 			BitOutputStream out = new BitOutputStream(escritura);
 			
 			/**
