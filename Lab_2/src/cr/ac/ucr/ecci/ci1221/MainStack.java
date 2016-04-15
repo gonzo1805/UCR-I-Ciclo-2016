@@ -5,6 +5,8 @@ import cr.ac.ucr.ecci.ci1221.model.Student;
 import cr.ac.ucr.ecci.ci1221.util.collection.Iterator;
 import cr.ac.ucr.ecci.ci1221.util.collection.stack.Stack;
 import cr.ac.ucr.ecci.ci1221.util.collection.stack.StackArray;
+import cr.ac.ucr.ecci.ci1221.util.collection.stack.StackLinkedList;
+import cr.ac.ucr.ecci.ci1221.util.collection.stack.StackSpecialArray;
 
 import java.util.Random;
 

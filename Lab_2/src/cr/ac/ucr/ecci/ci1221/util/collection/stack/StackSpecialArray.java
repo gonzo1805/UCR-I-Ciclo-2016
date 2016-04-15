@@ -3,59 +3,129 @@ package cr.ac.ucr.ecci.ci1221.util.collection.stack;
 import cr.ac.ucr.ecci.ci1221.util.collection.Iterator;
 
 /**
- * Implementation of a stack using a modified version of the array implementation.
+ * Implementation of a stack using a modified version of the array
+ * implementation.
  *
  * @author Rodrigo A. Bartels
  */
 public class StackSpecialArray<E> implements Stack<E> {
 
-    @Override
-    public void push(E element) {
+	private E[] elements = (E[]) new Object[50];
+	private static int cantidadDatos = 0;
+	private static int datoFinal = 0;
 
-    }
+	@Override
+	public void push(E element) {
+		if (cantidadDatos >= elements.length) {
+			E[] sustituto = (E[]) new Object[elements.length * 2];
+			for (int i = 0; i < cantidadDatos; i++) {
+				sustituto[i] = elements[i];
+			}
+			elements[datoFinal-1] = element;
+			elements = sustituto;
+			cantidadDatos++;
+			datoFinal++;
+		} else {
+			elements[datoFinal] = element;
+			datoFinal++;
+			cantidadDatos++;
+		}
+	}
 
-    @Override
-    public E peek() {
-        return null;
-    }
+	@Override
+	public E peek() {
+		return elements[datoFinal - 1];
+	}
 
-    @Override
-    public E pop() {
-        return null;
-    }
+	@Override
+	public E pop() {
+		E retorno = elements[datoFinal - 1];
+		elements[datoFinal - 1] = null;
+		datoFinal--;
+		cantidadDatos--;
+		return retorno;
 
-    @Override
-    public void add(E element) {
+	}
 
-    }
+	@Override
+	public void add(E element) {
+		push(element);
+	}
 
-    @Override
-    public E remove(E element) {
-        return null;
-    }
+	@Override
+	public E remove(E element) {
+		for (int i = 0; i < cantidadDatos; i++) {
+			if (elements[datoFinal - 1] == element) {
+				return pop();
+			} else {
+				if (elements[i] == element) {
+					E retorno = elements[i];
+					while (i != cantidadDatos) {
+						elements[i] = elements[i + 1];
+						i++;
+					}
+					cantidadDatos--;
+					datoFinal--;
+					return retorno;
+				}
+			}
+		}
+		System.out.println("El elemento no esta en la lista");
+		return null;
+	}
 
-    @Override
-    public boolean contains(E element) {
-        return false;
-    }
+	@Override
+	public boolean contains(E element) {
+		for (int i = 0; i < cantidadDatos; i++) {
+			if (elements[i] == element)
+				return true;
+		}
+		return false;
+	}
 
-    @Override
-    public int size() {
-        return 0;
-    }
+	@Override
+	public int size() {
+		return cantidadDatos;
+	}
 
-    @Override
-    public boolean isEmpty() {
-        return false;
-    }
+	@Override
+	public boolean isEmpty() {
+		return cantidadDatos == 0;
+	}
 
-    @Override
-    public void clear() {
+	@Override
+	public void clear() {
+		elements = (E[]) new Object[50];
+		cantidadDatos = 0;
+		datoFinal = 0;
+	}
 
-    }
+	@Override
+	public Iterator<E> iterator() {
+		return new It();
+	}
 
-    @Override
-    public Iterator<E> iterator() {
-        return null;
-    }
+	private class It<E> implements Iterator<E> {
+		private int actual = 0;
+
+		public It(){};
+		
+		@Override
+		public boolean hasNext() {
+			return actual < cantidadDatos;
+		}
+
+		@Override
+		public E next() {
+			if (actual >= cantidadDatos) {
+				System.out.println("No hay mas elementos");
+				return null;
+			} else {
+				E retorno = (E) elements[actual];
+				actual++;
+				return retorno;
+			}
+		}
+
+	}
 }
