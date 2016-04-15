@@ -18,13 +18,13 @@ import cr.ac.ucr.ecci.ci1221.util.collection.list.List;
 public class Main {
 
   public static void main(String[] args) {
-    List<Integer> list1 = new ArrayList<>();
+    List<Integer> list1 = new LinkedList<>();
     Random random = new Random(123456789);
 
     System.out.println("List is empty? " + list1.isEmpty());
 
     long startTime = System.nanoTime();
-    for (int i = 0; i < 1000000; i++) {
+    for (int i = 0; i < 10; i++) {
       list1.add(random.nextInt());
     }
     long estimatedTime = System.nanoTime() - startTime;
@@ -38,7 +38,7 @@ public class Main {
     boolean containsCheck = list1.contains(-1);
     System.out.println("The number -1 is available: " + containsCheck);
 
-    list1.add(-2, 50);
+    list1.add(-2, 5);
     int position = list1.find(-2);
     System.out.println("The number -2 is at position: " + position);
 

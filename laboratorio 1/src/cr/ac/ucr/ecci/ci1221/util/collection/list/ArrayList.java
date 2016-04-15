@@ -25,7 +25,7 @@ public class ArrayList<E> implements List<E> {
 	@Override
 	public void add(E element, int position) {
 		if (position - 1 <= cantidadDatos) {
-			E[] lista2 = (E[]) new Object[cantidadDatos + 1];
+			E[] lista2 = (E[]) new Object[cantidadDatos*2];
 			for (int i = 0; i < cantidadDatos; i++) {
 				if (i < position) {
 					lista2[i] = lista[i];
@@ -268,6 +268,8 @@ public class ArrayList<E> implements List<E> {
 
 	private class A<E> implements Iterator<E> {
 		int actual = 0;
+		
+		public A(){}
 		@Override
 		public boolean hasNext() {
 			return actual < cantidadDatos; 
@@ -275,7 +277,7 @@ public class ArrayList<E> implements List<E> {
 
 		@Override
 		public E next() {
-			if (actual > cantidadDatos) {
+			if (actual >= cantidadDatos) {
 				System.out.println("Ya esta en el final de la lista");
 				return null;
 			}
