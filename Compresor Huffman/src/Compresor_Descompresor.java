@@ -1,4 +1,4 @@
-import java.io.File;
+//import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
@@ -14,7 +14,7 @@ public class Compresor_Descompresor {
 	 * Metodo que comprime todo el archivo original y lo guarda en un archivo
 	 * .huff Cada parte se explicara dentro del metodo
 	 */
-	public void Comprime(String Inicio, String Destino) {
+	public void Comprime(String directorio ,String Inicio, String Destino) {
 		/**
 		 * "Atributos" del metodo (que en este caso algunos terminan siendo
 		 * instancias o variables locales) Lista: la lista ordenada que se usara
@@ -34,7 +34,7 @@ public class Compresor_Descompresor {
 			 * Crea el archivo para la lectura a partir de la direccion
 			 * especificada
 			 */
-			archivo = new FileInputStream(Inicio);
+			archivo = new FileInputStream(directorio+"\\"+Inicio);
 			/**
 			 * While para la lectura del archivo y
 			 */
@@ -85,13 +85,13 @@ public class Compresor_Descompresor {
 			 * Reapertura del archivo para la compresion
 			 */
 
-			archivo = new FileInputStream(Inicio);
+			archivo = new FileInputStream(directorio+"\\"+Inicio);
 
 			/**
 			 * archivo2 es el archivo que se va a guardar out el que nos
 			 * habilita al uso de bits
 			 */
-			FileOutputStream archivo2 = new FileOutputStream(Destino);
+			FileOutputStream archivo2 = new FileOutputStream(directorio+"\\"+Destino+"."+Inicio.charAt(Inicio.length()-3)+Inicio.charAt(Inicio.length()-2)+Inicio.charAt(Inicio.length()-1)+".huf");
 			BitOutputStream out = new BitOutputStream(archivo2);
 
 			/**
@@ -203,7 +203,7 @@ public class Compresor_Descompresor {
 	 * Metodo que descomprime un archivo previamente comprimido por este
 	 * compresor, se especificara cada parte dentro del metodo.
 	 */
-	public void Descomprime(String Inicio, String Destino) {
+	public void Descomprime(String directorio, String Inicio, String Destino) {
 
 		/**
 		 * "Atributos" del metodo (que en este caso algunos terminan siendo
@@ -219,7 +219,7 @@ public class Compresor_Descompresor {
 			 * Apertura del archivo previamente comprimido y creacion de in que
 			 * nos permite la lectura por bits del mismo
 			 */
-			archivo = new FileInputStream(Inicio);
+			archivo = new FileInputStream(directorio+"\\"+Inicio);
 			BitInputStream in = new BitInputStream(archivo);
 
 			/**
@@ -302,7 +302,7 @@ public class Compresor_Descompresor {
 			/**
 			 * Print para depuracion
 			 */
-			System.out.println(cantidadCaracteres);
+			//System.out.println(cantidadCaracteres);
 
 			/**
 			 * Creacion del codigo y el arbol para empezar a almacenar los
@@ -413,7 +413,7 @@ public class Compresor_Descompresor {
 			 * Apertura del nuevo archivo donde sera almacenado o escrito el
 			 * nuevo archivo esta vez ya descomprimido
 			 */
-			FileOutputStream escritura = new FileOutputStream(Destino);
+			FileOutputStream escritura = new FileOutputStream(directorio+"\\"+Destino+"."+Inicio.charAt(Inicio.length()-7)+Inicio.charAt(Inicio.length()-6)+Inicio.charAt(Inicio.length()-5));
 			BitOutputStream out = new BitOutputStream(escritura);
 
 			/**
