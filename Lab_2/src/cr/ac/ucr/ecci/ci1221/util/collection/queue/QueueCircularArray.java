@@ -8,103 +8,132 @@ import cr.ac.ucr.ecci.ci1221.util.collection.Iterator;
  * @author Rodrigo A. Bartels
  */
 public class QueueCircularArray<E> implements Queue<E> {
-	
+
 	private E[] elements = (E[]) new Object[100];
 	private static int write = 0;
 	private static int read = 0;
 	private static int cantidadDatos = 0;
-	
-    @Override
-    public void enqueue(E element) {
-    	if (elements[0] == null){
-    		elements[0] = element;
-    		cantidadDatos++;
-    		write++;
-    	}
-    	if (cantidadDatos + 1 >= elements.length){
-    		E[] sustituto = (E[]) new Object[elements.length * 2];
-    		for (int i=0; i<cantidadDatos; i++){
-    			sustituto[i+1] = elements[i];
-    		}
-    		sustituto[0] = element;
-    		elements = sustituto;
-    		cantidadDatos++;
-    		write++;
-    	}
-    	else {
-    		E aux = elements[0];
-			E aux2 = elements[1];
+
+	@Override
+	public void enqueue(E element) {
+		if (cantidadDatos + 1 > elements.length) {
+			E[] auxiliar = (E[]) new Object[cantidadDatos * 2];
 			for (int i = 0; i < cantidadDatos; i++) {
-				elements[i + 1] = aux;
-				aux = aux2;
-				aux2 = elements[i+2];
+				auxiliar[i] = elements[i];
 			}
-			elements[0] = element;
-			elements[cantidadDatos] = aux2;
-			cantidadDatos++;
-			write++;
-    	}
-    }
+			elements = auxiliar;
+		}
+		elements[write] = element;
+		write++;
+		cantidadDatos++;
 
-    @Override
-    public E dequeue() {
-        return null;
-    }
+	}
 
-    @Override
-    public E top() {
-        return null;
-    }
+	@Override
+	public E dequeue() {
+		if (read == write) {
+			System.out.println("La cola esta vacia, se retornara null");
+			return null;
+		} else {
+			E aux = elements[read];
+			elements[read] = null;
+			cantidadDatos--;
+			read++;
+			return aux;
+		}
+	}
 
-    @Override
-    public void add(E element) {
+	@Override
+	public E top() {
+		return elements[write - 1];
+	}
 
-    }
+	@Override
+	public void add(E element) {
+		enqueue(element);
+	}
 
-    @Override
-    public E remove(E element) {
-        return null;
-    }
+	@Override
+	public E remove(E element) {
+		if (element == elements[read]) {
+			return dequeue();
+		} else if (element == elements[write]) {
+			E aux = elements[write];
+			elements[write] = null;
+			write--;
+			cantidadDatos--;
+			return aux;
+		} else {
+			E aux1 = elements[0];
+			E aux2 = elements[0];
+			for (int i = 0; i < cantidadDatos; i++) {
+				if (elements[i] == element) {
+					while (i != elements.length) {
+						elements[i] = elements[i + 1];
+						i++;
+					}
+					write--;
+					cantidadDatos--;
+					return element;
+				}
+				if (elements[i] != element) {
+					;
+				}
+			}
+		}
+		return null;
+	}
 
-    @Override
-    public boolean contains(E element) {
-        return false;
-    }
+	@Override
+	public boolean contains(E element) {
+		for (int i = 0; i < cantidadDatos; i++) {
+			if (elements[i] == element) {
+				return true;
+			}
+		}
+		return false;
+	}
 
-    @Override
-    public int size() {
-        return 0;
-    }
+	@Override
+	public int size() {
+		return cantidadDatos;
+	}
 
-    @Override
-    public boolean isEmpty() {
-        return false;
-    }
+	@Override
+	public boolean isEmpty() {
+		return cantidadDatos == 0;
+	}
 
-    @Override
-    public void clear() {
+	@Override
+	public void clear() {
+		E[] elements = (E[]) new Object[100];
+		cantidadDatos = 0;
+		write = 0;
+		read = 0;
+	}
 
-    }
+	@Override
+	public Iterator<E> iterator() {
+		return new It();
+	}
 
-    @Override
-    public Iterator<E> iterator() {
-        return null;
-    }
-    
-    private class It<E> implements Iterator<E> {
-    	
-    	int actual = 0;
-    	
-    	public It() {}
-    	@Override
-    	public boolean hasNext() {
-    		// TODO Auto-generated method stub
-    		return false;
-    	}
-    	@Override
-    	public E next() {
-    		// TODO Auto-generated method stub
-    		return null;
-    	}
-    }
+	private class It<E> implements Iterator<E> {
+
+		int actual = 0;
+
+		public It() {
+		}
+
+		@Override
+		public boolean hasNext() {
+			return actual < cantidadDatos;
+		}
+
+		@Override
+		public E next() {
+			E aux = (E) elements[actual];
+			actual++;
+			return aux;
+		}
+	}
 }
