@@ -19,7 +19,7 @@ import java.util.Random;
 public class MainStack {
 
   public static void main(String[] args) {
-    Stack<Integer> stack = new StackArray<>();
+    Stack<Integer> stack = new StackSpecialArray<>();
     Random random = new Random(123456789);
 
     System.out.println("Stack is empty? " + stack.isEmpty());

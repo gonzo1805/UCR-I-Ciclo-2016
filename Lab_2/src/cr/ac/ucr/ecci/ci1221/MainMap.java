@@ -33,14 +33,14 @@ public class MainMap {
 
     map.put("A40732", 10);
     boolean containsCheck = map.containsKey("A40732");
-    System.out.println("The student with ID A40632 is in the map" + containsCheck);
+    System.out.println("The student with ID A40732 is in the map" + containsCheck);
     Integer gpa = map.get("A40732");
-    System.out.println("The student with ID A40632 has a GPA of: " + gpa);
+    System.out.println("The student with ID A40732 has a GPA of: " + gpa);
 
-    map.remove("A40632");
+    map.remove("A40732");
 
     containsCheck = map.containsKey("A40732");
-    System.out.println("The student with ID A40632 is in the map" + containsCheck);
+    System.out.println("The student with ID A40732 is in the map" + containsCheck);
 
     map.clear();
     System.out.println("Map is empty? " + map.isEmpty());

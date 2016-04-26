@@ -6,6 +6,8 @@ import cr.ac.ucr.ecci.ci1221.util.collection.Iterator;
 import cr.ac.ucr.ecci.ci1221.util.collection.queue.Queue;
 import cr.ac.ucr.ecci.ci1221.util.collection.stack.Stack;
 import cr.ac.ucr.ecci.ci1221.util.collection.queue.QueueArray;
+import cr.ac.ucr.ecci.ci1221.util.collection.queue.QueueCircularArray;
+import cr.ac.ucr.ecci.ci1221.util.collection.queue.QueueLinkedList;
 import cr.ac.ucr.ecci.ci1221.util.collection.stack.StackArray;
 
 import java.util.Random;
@@ -19,7 +21,7 @@ import java.util.Random;
 public class MainQueue {
 
   public static void main(String[] args) {
-    Queue<Integer> queue = new QueueArray<>();
+    Queue<Integer> queue = new QueueLinkedList<>();
     Random random = new Random(123456789);
 
     System.out.println("Queue is empty? " + queue.isEmpty());
